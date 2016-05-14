@@ -31,8 +31,24 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+<<<<<<< HEAD
 
 
+=======
+<title>Cadastra Usuario</title>
+
+
+	<div class="container">
+	<ul class="nav nav-pills">
+  <li role="presentation" class="active"><a href="index.jsp">Home</a></li>
+  <li role="presentation"><a href="CadastraEvento.jsp">Eventos</a></li>
+</ul>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Usuário</h3>
+			</div>
+			
+>>>>>>> refs/remotes/origin/master
 
 
 <script>

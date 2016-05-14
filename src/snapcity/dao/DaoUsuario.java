@@ -17,11 +17,6 @@ import snapcity.dao.banco.ConectionFactory;
  */
 public class DaoUsuario {
 
-	// TODO remover atributos e coloca-los como variavel de metodo
-	Connection c = null;
-	Statement stmt = null;
-
-
 	/**
 	 * Mostra todos os Usuarios cadastrados
 	 * @return Lista de {@link mostrarUsuarios} cadastros.

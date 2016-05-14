@@ -28,7 +28,6 @@ import snapcity.model.Usuario;
 @Path("/usuarios")
 public class UsuarioHandler {
 	
-
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getUsuarios() {
