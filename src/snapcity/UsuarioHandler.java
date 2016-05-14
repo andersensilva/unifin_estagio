@@ -88,7 +88,7 @@ public class UsuarioHandler {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response putUsuario(String jsonString){
-		DaoUsuario dao = new DaoUsuario();
+		DaoUsuario dao = new DaoUsuario(); 
 		Usuario user = DaoUsuario.fromJSON(jsonString);
 		dao.atualizaUsuario(user);
 		return Response.ok().build();
