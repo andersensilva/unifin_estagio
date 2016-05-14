@@ -32,17 +32,9 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-<title>Cadastra Usuario</title>
-</head>
-<body>
-	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Usuário</h3>
-			</div>
-			<!doctype html>
-			<html lang="en">
-<head>
+
+			
+
 
 <script>
 	$(function() {
@@ -169,6 +161,16 @@
 </script>
 </head>
 <body>
+<title>Cadastra Usuario</title>
+	<div class="container">
+	<ul class="nav nav-pills">
+  <li role="presentation" class="active"><a href="index.jsp">Home</a></li>
+  <li role="presentation"><a href="CadastraEvento.jsp">Cadastra Eventos</a></li>
+</ul>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Usuário</h3>
+			</div>
 
 	<div id="tabs">
 		<ul>
@@ -306,11 +308,10 @@
 	<!--Aqui é onde vai aparecer o resultado da busca-->
 	<div id="resBusca"></div>
 		</div>
-</body>
+
+		</div>
 		</div>
 		</p>
 </div>
-	</div>
 </body>
-	
 </html>

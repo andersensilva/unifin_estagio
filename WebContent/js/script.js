@@ -1,8 +1,28 @@
- function carregarItens(){
-    	//Empresa":"RedenÃ§Ã£o Espelho DAgua","Site":"","Logomarca":"","NomeRede":"Redenção","Endereco":"","Longitude":"-51.21726500","Latitude":"-30.03550000","Setor":"Poder Público"}
+function exclui(){
+	
+
+			var del = new Object();
+			del.id = $('#id').val();
+
+			$.ajax({
+				url : 'http://localhost:8080/snapcity/rest/evento/' + del.id,
+				type : 'DELETE',
+				dataType : 'json',
+				success : function(data, textStatus, xhr) {
+					alert("Evento "+ del.id + "foi excluído com sucesso.");
+				},
+				error : function(xhr, textStatus, errorThrown) {
+					console.log('Error in Operation');
+				}
+			});
+	
+}
+
+function carregarItens(){
+    	
     	//variáveis
     	var itens = "", url = "http://localhost:8080/snapcity/rest/evento";
-	  //var itens = "", url = "http://www.portoalegrelivre.com.br/php/services/WSPoaLivreRedes.php";
+	 
     	//Capturar Dados Usando Método AJAX do jQuery
         $.ajax({
     	    url: url,
@@ -28,6 +48,9 @@
     				    itens += "<td>" + retorno[i].latitude + "</td>";
     				    itens += "<td>" + retorno[i].descricao + "</td>";
     				    itens += "<td>" + retorno[i].datacriacao + "</td>";
+    				    
+    				   
+    				    
     				    itens += "<td> ";
     			    }
     			    //Preencher a Tabela
