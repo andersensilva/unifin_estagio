@@ -8,8 +8,10 @@ public class Evento {
 	private String descricao;
 	private String tag;
 	private Integer id_usuario;
+	// TODO remover atributo id_usuario e renomear longitude
 	private double longintude;
 	private double latitude;
+	// TODO 
 	private String datahora;
 	
 	public Evento(){

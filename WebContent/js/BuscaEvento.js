@@ -1,8 +1,7 @@
  function carregarItens(){
-    	//Empresa":"RedenÃ§Ã£o Espelho DAgua","Site":"","Logomarca":"","NomeRede":"Redenção","Endereco":"","Longitude":"-51.21726500","Latitude":"-30.03550000","Setor":"Poder Público"}
-    	//variáveis
+    	
     	var itens = "", url = "http://localhost:8080/snapcity/rest/usuarios/evento/{id}";
-	  //var itens = "", url = "http://www.portoalegrelivre.com.br/php/services/WSPoaLivreRedes.php";
+    	
     	//Capturar Dados Usando Método AJAX do jQuery
         $.ajax({
     	    url: url,

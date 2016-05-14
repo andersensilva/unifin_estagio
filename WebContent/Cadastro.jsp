@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="org.json.JSONException"%>
 
@@ -33,7 +32,7 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 
-			
+
 
 
 <script>
@@ -116,7 +115,7 @@
 			var mostra = new Object();
 			mostra.id = $('#id5').val();
 				$.ajax({
-					url : "http://localhost:8080/snapcity/rest/usuarios/evento/"+ mostra.id,
+					url : "http://localhost:8080/snapcity/rest/usuarios/"+ mostra.id +"/evento",
 					type : 'GET',
 					dataType : 'json',
 					data : mostra,
@@ -161,12 +160,13 @@
 </script>
 </head>
 <body>
+			
 <title>Cadastra Usuario</title>
 	<div class="container">
 	<ul class="nav nav-pills">
-  <li role="presentation" class="active"><a href="index.jsp">Home</a></li>
-  <li role="presentation"><a href="CadastraEvento.jsp">Cadastra Eventos</a></li>
-</ul>
+  		<li role="presentation" class="active"><a href="index.jsp">Home</a></li>
+  		<li role="presentation"><a href="CadastraEvento.jsp">Cadastra Eventos</a></li>
+	</ul>
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Usuário</h3>

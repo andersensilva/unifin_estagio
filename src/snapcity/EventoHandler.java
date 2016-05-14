@@ -24,11 +24,12 @@ import java.util.Iterator;
  import snapcity.model.Evento;
  import snapcity.model.Usuario;
 
-
+// TODO java doc
 
 @Path("/evento")
 public class EventoHandler   {
 	
+	// TODO remover atributos de classe e coloca-los nos metodos
 	
 	DaoEvento daoEventos = new DaoEvento();
 	Evento modelEventos = new Evento();
@@ -41,6 +42,9 @@ public class EventoHandler   {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getEvento() {
+		
+		// TODO getEventos
+		
 		List<Evento> evento = daoEventos.mostrarEvento();
 		
 		JSONObject o = new JSONObject();
@@ -51,7 +55,9 @@ public class EventoHandler   {
 			}
 			
 		
-		return Response.ok(200).entity(json.toString()).build();
+			o.put("eventos", json);
+			
+		return Response.ok().entity(o.toString()).build();
 		
 		
 	}
@@ -64,9 +70,15 @@ public class EventoHandler   {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response postEvento(String jsonString) {
+		
+		// TODO renomear para insereEvento
+		
+		// TODO remover system e renomear jsonString para evento
+		
 		System.err.println(jsonString);
 		Evento evento = daoEventos.fromJson(jsonString);
 		 daoEventos.insereEvento(evento);
+		 // TODO remover entity
 		return Response.ok().entity("Cadastro Efetuado com Sucesso!").build();
 		}
 	
@@ -80,10 +92,11 @@ public class EventoHandler   {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response buscaEvento(@PathParam("id") int id) {
+		// TODO java doc
 		Evento eventos = daoEventos.buscaEvento(id);
 		JSONObject json = DaoEvento.toJson(eventos);
 		
-		return Response.ok(200).entity(json.toString()).build();		
+		return Response.ok().entity(json.toString()).build();		
 	}
 	
 	
@@ -98,7 +111,8 @@ public class EventoHandler   {
     public Response delete(@PathParam("id") Integer id) {
 		System.out.println(id);
 		daoEventos.excluiEvento(id);
-		return Response.ok(200).entity("Evento de numero " +id+ " foi removido").build();
+		// TODO entity remover
+		return Response.ok().entity("Evento de numero " +id+ " foi removido").build();
     }
 	
 	
@@ -110,9 +124,10 @@ public class EventoHandler   {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response putUsuario(String jsonString){
+		// TODO renomear para atualizaEvento
 		Evento evento = daoEventos.fromJson(jsonString);
 		daoEventos.atualizaEvento(evento);
-		return Response.status(200).entity("Cadastro Alterado com Sucesso!").build();
+		return Response.ok().build();
 	}
 
 }

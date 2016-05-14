@@ -25,7 +25,7 @@ public class teste {
 //		 Usuario user = DaoUsuario.fromJSON(json_str);
 //		 dao.insereUsuario(user);
 
-		 List<Evento> evento = dao.buscaUsuariosEvento(28);
+		 List<Evento> evento = dao.buscaEventosDoUsuario(28);
 		 JSONArray array = new JSONArray();
 		 for(Evento user : evento)
 			 array.put(DaoEvento.toJson(user)); 	

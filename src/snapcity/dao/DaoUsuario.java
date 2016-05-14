@@ -16,6 +16,8 @@ import snapcity.dao.banco.ConectionFactory;
  *
  */
 public class DaoUsuario {
+
+	// TODO remover atributos e coloca-los como variavel de metodo
 	Connection c = null;
 	Statement stmt = null;
 
@@ -24,13 +26,13 @@ public class DaoUsuario {
 	 * Mostra todos os Usuarios cadastrados
 	 * @return Lista de {@link mostrarUsuarios} cadastros.
 	 */
-	public List<Usuario> mostrarUsuario() {
+	public List<Usuario> mostrarUsuarios() {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		try {
-			c = ConectionFactory.getConnection();
-			stmt = c.createStatement();
+			Connection c = ConectionFactory.getConnection();
+			 Statement stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios;");
-			
+
 			while (rs.next()) {
 				Usuario usuario = new Usuario();
 				usuario.setId(rs.getInt("id"));
@@ -47,7 +49,6 @@ public class DaoUsuario {
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
-		System.out.println("Operacao com mostarUsuarios com sucesso");
 		return usuarios;
 	}
 
@@ -57,11 +58,11 @@ public class DaoUsuario {
 	 * @param usuario
 	 * @return Lista de {@link buscaUsuariosEventos} cadastros.
 	 */
-	public List<Evento> buscaUsuariosEvento(int id) {
+	public List<Evento> buscaEventosDoUsuario(int id) {
 		ArrayList<Evento> eventos = new ArrayList<Evento>();
 		try {
-			c = ConectionFactory.getConnection();
-			stmt = c.createStatement();
+			Connection c = ConectionFactory.getConnection();
+			Statement stmt = c.createStatement();
 
 			DaoEvento daoEvento = new DaoEvento();
 			ResultSet rs = stmt.executeQuery("select usuarios.nome, eventos.* from eventos,usuarios where usuarios.id = '"+ id + "' and eventos.id_usuario ='"+ id +"';");
@@ -73,8 +74,7 @@ public class DaoUsuario {
 			}
 			rs.close();
 			c.close();
-			stmt.close();
-			System.out.println("Operacao com buscaUsuarios com sucesso");	
+			stmt.close();	
 
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -91,8 +91,8 @@ public class DaoUsuario {
 	public Usuario buscaUsuario(int id) {  
 		Usuario usuarios = new Usuario();
 		try {
-			c = ConectionFactory.getConnection();
-			stmt = c.createStatement();
+			Connection c = ConectionFactory.getConnection();
+			Statement stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios WHERE id = '"+ id + "';");
 			while (rs.next()) {
 				usuarios.setId(rs.getInt("id"));
@@ -104,7 +104,6 @@ public class DaoUsuario {
 			rs.close();
 			c.close();
 			stmt.close();
-			System.out.println("Operacao com buscaUsuarios com sucesso");
 
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -120,9 +119,9 @@ public class DaoUsuario {
 	 */
 	public void excluiUsuario(Integer id) {    
 		try {   
-			c = ConectionFactory.getConnection();
+			Connection c = ConectionFactory.getConnection();
 			c.setAutoCommit(false);
-			stmt = c.createStatement();
+			Statement stmt = c.createStatement();
 			String sql = "DELETE FROM usuarios WHERE id = '" +id + "';";
 			stmt.executeUpdate(sql);
 			c.commit();
@@ -132,7 +131,6 @@ public class DaoUsuario {
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
 		}
-		System.out.println("Operacao com excluiUsuario com sucesso");
 	} 
 
 	/**
@@ -142,9 +140,9 @@ public class DaoUsuario {
 	 */
 	public void atualizaUsuario(Usuario usuario) {    
 		try {  
-			c = ConectionFactory.getConnection();
+			Connection c = ConectionFactory.getConnection();
 			c.setAutoCommit(false);
-			stmt = c.createStatement();
+			Statement stmt = c.createStatement();
 			Timestamp datacriacao = new Timestamp(System.currentTimeMillis());
 			String sql = "UPDATE usuarios set nome = '"+ usuario.getNome() +
 					"',senha ='"+ usuario.getSenha() +
@@ -160,27 +158,25 @@ public class DaoUsuario {
 			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
 			System.exit(0);
 		}
-		System.out.println("Operacao com atualizaUsuarios com sucesso");
-
 	} 
+	
 	/**
 	 * Método para cadastrar um novo Usuário
 	 * @param usuario
 	 * @return Lista de {@link insereUsuarios} cadastros.
 	 */
-	public Usuario insereUsuario( Usuario usuario ){
+	public Usuario insereUsuario(Usuario usuario){
 		try{
-			c = ConectionFactory.getConnection();
+			Connection c = ConectionFactory.getConnection();
 			c.setAutoCommit(false); 
-			stmt = c.createStatement();
+			Statement stmt = c.createStatement();
 			Timestamp datacriacao = new Timestamp(System.currentTimeMillis()); 
 			String sql = "INSERT INTO usuarios (nome,senha,email,datacriacao) values ('"
-			+ usuario.getNome()+"','"+usuario.getSenha()+"','"+usuario.getEmail()+"','"+datacriacao+"');";
+					+ usuario.getNome()+"','"+usuario.getSenha()+"','"+usuario.getEmail()+"','"+datacriacao+"');";
 			stmt.executeUpdate(sql);
 			c.commit();
 			stmt.close();
 			c.close();
-			System.out.println("Usuario foi criado com sucesso");
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName()+" Erro: "+ e.getMessage() );		
 			System.exit(0);
@@ -188,7 +184,7 @@ public class DaoUsuario {
 		return usuario;
 	}
 
-	public static JSONObject toJson (Usuario usuario){
+	public static JSONObject toJson (Usuario usuario) {
 		JSONObject obj = new JSONObject();
 		obj.put("nome", usuario.getNome());
 		obj.put("senha", usuario.getSenha());
@@ -197,32 +193,26 @@ public class DaoUsuario {
 		obj.put("id", usuario.getId());
 		return obj;
 	}
-	
+
 
 	public static Usuario fromJSON(String jsonString){
 		JSONObject obj = new JSONObject(jsonString);
 		Usuario usuario = new Usuario();
+
 		if (obj.has("id")){
-		Integer id = obj.getInt("id");
+			Integer id = obj.getInt("id");
+			usuario.setId(id);
+		}
+
 		String nome = obj.getString ("nome");
 		String senha = obj.getString ("senha");
 		String email = obj.getString ("email");
-		
-		usuario.setId(id);
+
 		usuario.setNome(nome);
 		usuario.setSenha(senha);
 		usuario.setEmail(email);
-		}
-		else{
-		String nome = obj.getString ("nome");
-		String senha = obj.getString ("senha");
-		String email = obj.getString ("email");
-		
-		usuario.setNome(nome);
-		usuario.setSenha(senha);
-		usuario.setEmail(email);
-		}
+
 		return usuario;
 	}	
-	
+
 }

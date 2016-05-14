@@ -1,5 +1,10 @@
 package snapcity.model;
 
+/**
+ * Classe POJO Usuario
+ * @author Andersen Silva e Marcelo
+ *
+ */
 public class Usuario {
 	private Integer id;
 	private String nome;
