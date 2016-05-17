@@ -37,10 +37,7 @@ public class UsuarioHandler {
 		for (Usuario user : usuarios)
 			array.put(DaoUsuario.toJson(user));
 		
-		JSONObject o = new JSONObject();
-		o.put("usuarios", array);
-		
-		return Response.ok().entity(o.toString()).build();
+		return Response.ok().entity(array.toString()).build();
 				
 	}
 	
@@ -55,11 +52,11 @@ public class UsuarioHandler {
 		JSONArray array = new JSONArray();
 		for (Evento user : evento)
 			array.put(DaoEvento.toJson(user));
-		JSONObject o = new JSONObject();
-		o.put("usuario", DaoUsuario.toJson(u));
-		o.put("eventos", array);
-		
-		return Response.ok().entity(o.toString()).build();
+			array.put(DaoUsuario.toJson(u));
+		//JSONObject o = new JSONObject();
+		//o.put("usuario", DaoUsuario.toJson(u));
+		//o.put("eventos", array);
+		return Response.ok().entity(array.toString()).build();
 	}
 		
 		

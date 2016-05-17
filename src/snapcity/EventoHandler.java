@@ -47,7 +47,7 @@ public class EventoHandler   {
 		
 		List<Evento> evento = daoEventos.mostrarEvento();
 		
-		JSONObject o = new JSONObject();
+		
 		JSONArray json = new JSONArray();
 		
 			for (Evento e : evento) {
@@ -55,9 +55,8 @@ public class EventoHandler   {
 			}
 			
 		
-			o.put("eventos", json);
 			
-		return Response.ok().entity(o.toString()).build();
+		return Response.ok().entity(json.toString()).build();
 		
 		
 	}

@@ -21,7 +21,7 @@
     			    //Laço para criar linhas da tabela
     			    for(var i = 0; i<retorno.length; i++){
     				    itens += "<tr>";
-    				    itens += "<td>" + retorno[i] + "</td>";
+    				    itens += "<td>" + retorno[i].id + "</td>";
     				    itens += "<td>" + retorno[i].nome + "</td>";
     				    itens += "<td>" + retorno[i].senha + "</td>";
     				    itens += "<td>" + retorno[i].email + "</td>";

@@ -1,6 +1,7 @@
- function carregarItens(){
-    	
-    	var itens = "", url = "http://localhost:8080/snapcity/rest/usuarios/evento/{id}";
+ function carregarItensBusca(){
+	 	var mostra = new Object();
+	 	mostra.id = $('#id5').val();
+    	var itens = "", url = "http://localhost:8080/snapcity/rest/usuarios/"+mostra.id+"/evento";
     	
     	//Capturar Dados Usando Método AJAX do jQuery
         $.ajax({
@@ -22,16 +23,17 @@
     			    for(var i = 0; i<retorno.length; i++){
     				    itens += "<tr>";
     				    itens += "<td>" + retorno[i].id + "</td>";
+    				    itens += '<td><img height="100" width="100" SRC="'+retorno[i].foto+'"></td>'
     				    itens += "<td>" + retorno[i].longitude + "</td>";
     				    itens += "<td>" + retorno[i].latitude + "</td>";
     				    itens += "<td>" + retorno[i].descricao + "</td>";
-    				    itens += "<td>" + retorno[i].datahora + "</td>";
+    				    itens += "<td>" + retorno[i].datacriacao + "</td>";
  //    				    itens += "<td>" + retorno[i].Empresa + "</td>";
 //    				    itens += "<td>" + retorno[i].Setor + "</td>";
     				    itens += "</tr>";
     			    }
     			    //Preencher a Tabela
-    			    $("#minhaTabela tbody").html(itens);
+    			    $("#minhaTabelaBusca tbody").html(itens);
     			    
     			    //Limpar Status de Carregando
     			    $("h2").html("Carregado");
