@@ -178,6 +178,27 @@ public class DaoUsuario {
 		}
 		return usuario;
 	}
+	
+	public Usuario autenticacaoUsuario (String email, String senha){
+		Usuario usuretorno = null;
+		try{
+			Connection c = ConectionFactory.getConnection();
+			 Statement stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * from usuarios where email = '" + email + "' and senha = '" +senha + "';");
+			while (rs.next()){
+				usuretorno = new Usuario();
+				usuretorno.setEmail(rs.getString("email"));
+				usuretorno.setSenha(rs.getString("senha"));
+			}
+			rs.close();
+			c.close();
+			stmt.close();
+
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+		return usuretorno;
+	}
 
 	public static JSONObject toJson (Usuario usuario) {
 		JSONObject obj = new JSONObject();
@@ -198,12 +219,16 @@ public class DaoUsuario {
 			Integer id = obj.getInt("id");
 			usuario.setId(id);
 		}
-
-		String nome = obj.getString ("nome");
+		if(obj.has("nome")){
+			String nome = obj.getString ("nome");
+			usuario.setNome(nome);
+		}
+		
+		
 		String senha = obj.getString ("senha");
 		String email = obj.getString ("email");
 
-		usuario.setNome(nome);
+		
 		usuario.setSenha(senha);
 		usuario.setEmail(email);
 

@@ -139,7 +139,7 @@ $(document).ready(function() {
 			var p = new Object();
 			p.foto = jsonString;
 			$.ajax({
-				url : "http://localhost:8080/snapcity/rest/evento",
+				url : "http://localhost:2020/snapcity/rest/evento",
 				contentType : "application/json; charset=utf-8",
 				type : "post",
 				dataType : "json",

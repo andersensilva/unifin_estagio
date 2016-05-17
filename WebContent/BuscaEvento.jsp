@@ -30,7 +30,7 @@
        	 	var mostra = new Object();
             mostra.id = $('#id').val();
             $.ajax({
-                url: 'http://localhost:8080/snapcity/rest/evento/'+mostra.id,
+                url: 'http://localhost:2020/snapcity/rest/evento/'+mostra.id,
                 type: 'GET',
                 dataType: 'json',
                 data:mostra, 

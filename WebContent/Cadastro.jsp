@@ -28,10 +28,11 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="js/scriptUsuario.js" type="text/javascript"></script>
 <script src="js/BuscaEvento.js" type="text/javascript"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	
+
 <script>
 	$(function() {
 		$("#tabs").tabs();
@@ -41,7 +42,7 @@
 	$(document).ready(function() {
 		$("#cadastrar").click(function() {
 			$.ajax({
-				url : "http://localhost:8080/snapcity/rest/usuarios",
+				url : "http://localhost:2020/snapcity/rest/usuarios",
 				contentType : "application/json; charset=utf-8",
 				type : "post",
 				dataType : "json",
@@ -64,7 +65,7 @@
 	$(document).ready(function() {
 		$("#alterar").click(function() {
 			$.ajax({
-				url : "http://localhost:8080/snapcity/rest/usuarios",
+				url : "http://localhost:2020/snapcity/rest/usuarios",
 				contentType : "application/json; charset=utf-8",
 				type : "put",
 				dataType : "json",
@@ -90,7 +91,7 @@
 			var mostra = new Object();
 			mostra.id = $('#id').val();
 				$.ajax({
-					url : "http://localhost:8080/snapcity/rest/usuarios/"+ mostra.id,
+					url : "http://localhost:2020/snapcity/rest/usuarios/"+ mostra.id,
 					type : 'GET',
 					dataType : 'json',
 					data : mostra,
@@ -112,7 +113,7 @@
 			var mostra = new Object();
 			mostra.id = $('#id5').val();
 				$.ajax({
-					url : "http://localhost:8080/snapcity/rest/usuarios/"+ mostra.id +"/evento",
+					url : "http://localhost:2020/snapcity/rest/usuarios/"+ mostra.id +"/evento",
 					type : 'GET',
 					dataType : 'json',
 					data : mostra,
@@ -139,7 +140,7 @@
 			del.id = $('#id2').val();
 
 			$.ajax({
-				url : 'http://localhost:8080/snapcity/rest/usuarios/' + del.id,
+				url : 'http://localhost:2020/snapcity/rest/usuarios/' + del.id,
 				type : 'DELETE',
 				dataType : 'json',
 				//data:del,

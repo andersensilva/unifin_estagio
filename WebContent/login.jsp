@@ -7,27 +7,35 @@
  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
  <link rel="stylesheet" href="http://bootsnipp.com/dist/bootsnipp.min.css?ver=7d23ff901039aef6293954d33d23c066">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1055459707879922',
-      xfbml      : true,
-      version    : 'v2.6'
-    });
-  };
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#btn-login").click(function() {
+		$.ajax({
+			url : "http://localhost:2020/snapcity/rest/usuarios/login",
+			contentType : "application/json; charset=utf-8",
+			type : "post",
+			dataType : "json",
+			data : JSON.stringify({
+				email: $('#login-username').val(),
+				senha : $('#login-password').val(),
+				
+			}),
+			success : function(data) {
+				var url = "(http://localhost:2020/snapcity/logado.jsp)";  
+				  $(location).attr('href', url);
+				
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+			}
 
-  
-  
-  </script>
+		});
+	});
+
+});
+</script>
 
 
 <title>Login</title>

@@ -1,4 +1,5 @@
 package snapcity;
+import java.net.URI;
 import java.util.List;
 
 import javax.ws.rs.PathParam;
@@ -14,6 +15,8 @@ import javax.ws.rs.core.Response.Status;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.sun.research.ws.wadl.Request;
 
 import snapcity.dao.DaoEvento;
 import snapcity.dao.DaoUsuario;
@@ -70,6 +73,30 @@ public class UsuarioHandler {
 		return Response.ok().entity(json.toString()).build();		
 	}
 	
+	@POST
+	@Path("/login")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response loginUsuario(String jsonString){
+		System.out.println(jsonString);
+		DaoUsuario dao = new DaoUsuario();
+		Usuario user = DaoUsuario.fromJSON(jsonString);
+		String email = user.getEmail();
+		String senha = user.getSenha();
+		Usuario usr = new Usuario();
+		usr.setEmail(email);
+		usr.setSenha(senha);
+		
+		Usuario login = dao.autenticacaoUsuario(email,senha);
+		
+		if(login != null){
+			return Response.ok().build();
+		}
+		else{
+			return Response.status(404).build();
+		}
+		
+		
+	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
