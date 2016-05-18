@@ -24,11 +24,29 @@ $(document).ready(function() {
 				senha : $('#login-password').val(),
 				
 			}),
-			success : function(data) {
-				var url = "(http://localhost:2020/snapcity/logado.jsp)";  
+			success : function (data, textStatus, xhr) {
+				console.log(data)
+				if(xhr == 'Not Found'){
+				var url = "http://localhost:2020/snapcity/index.jsp";  
 				  $(location).attr('href', url);
-				
-
+				}
+				if(textStatus == 'parsererror'){
+					var url = "http://localhost:2020/snapcity/logado.jsp";  
+					  $(location).attr('href', url);
+					
+				}
+			},
+			error: function (data, textStatus, xhr) {
+				console.log(data)
+				if(xhr == 'Not Found'){
+				var url = "http://localhost:2020/snapcity/index.jsp";  
+				  $(location).attr('href', url);
+				}
+				if(textStatus == 'parsererror'){
+					var url = "http://localhost:2020/snapcity/logado.jsp";  
+					  $(location).attr('href', url);
+					
+				}
 			}
 
 		});

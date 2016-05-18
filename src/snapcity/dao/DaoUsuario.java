@@ -187,6 +187,8 @@ public class DaoUsuario {
 			ResultSet rs = stmt.executeQuery("SELECT * from usuarios where email = '" + email + "' and senha = '" +senha + "';");
 			while (rs.next()){
 				usuretorno = new Usuario();
+				usuretorno.setId(rs.getInt("id"));
+				usuretorno.setNome(rs.getString("nome"));
 				usuretorno.setEmail(rs.getString("email"));
 				usuretorno.setSenha(rs.getString("senha"));
 			}

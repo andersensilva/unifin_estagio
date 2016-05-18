@@ -82,12 +82,21 @@ public class UsuarioHandler {
 		Usuario user = DaoUsuario.fromJSON(jsonString);
 		String email = user.getEmail();
 		String senha = user.getSenha();
+		Integer id = user.getId();
 		Usuario usr = new Usuario();
 		usr.setEmail(email);
 		usr.setSenha(senha);
-		
+		usr.setId(id);
 		Usuario login = dao.autenticacaoUsuario(email,senha);
-		
+		if(id != null){
+		Usuario u = dao.buscaUsuario(id);
+		List<Evento> evento = dao.buscaEventosDoUsuario(id);
+		JSONArray array = new JSONArray();
+		for (Evento use : evento)
+			array.put(DaoEvento.toJson(use));
+			array.put(DaoUsuario.toJson(u));
+			return Response.ok(200).entity(array.toString()).build();
+		}
 		if(login != null){
 			return Response.ok().build();
 		}
