@@ -28,113 +28,90 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="js/scriptUsuario.js" type="text/javascript"></script>
 <script src="js/BuscaEvento.js" type="text/javascript"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE_c3WG1QxjcPrwWNtp3MBZGnrues5Nk0&amp;sensor=false"></script>
+<script>
+
+<% 
+String user = request.getParameter("user"); 
+%>
+var mostra = new Object();
+mostra.id = user;
+
+function carregarPontos() {
+	
+    $.getJSON('rest/usuarios/login', function(evento) {
+ 
+        $.each(evento , function(index, evento) {
+ 
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(evento.latitude, evento.longitude),
+                map: map,
+
+            });          	 
+            var infowindow = new google.maps.InfoWindow(), marker;
+            	 
+            	google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            	    return function() {
+            	    	
+            	        infowindow.setContent("<h3>"+evento.descricao+"</h3><p>Tags: "+evento.tags+"</p>");
+            	        
+            	        infowindow.open(map, marker);
+            	    }
+            	})(marker))
+        });
+ 
+    });
+ 
+}
+ 
+carregarPontos();
+</script>
 <body>
  <div class="container-fluid">
+
 	<div class="row">
 		<div class="col-md-12">
 			<div class="row">
 				<div class="col-md-4">
+				<div id="user"></div>
+				
 				</div>
 				<div class="col-md-8">
+				 		<div id="mapa" style="height: 500px; width: 100%">
+        				</div>
+ 
+        				<!-- Arquivo de inicialização do mapa -->
+      					  <script src="js/mapa.js"></script>
 				</div>
 			</div>
 			<h3>
-				h3. Lorem ipsum dolor sit amet.
+				Eventos Cadastrados
 			</h3>
-			<table class="table">
+				<section>
+				 <body onload="carregarItensBusca1()">
+				 <input id="id6" name="id" type="hidden" value=>
+			<h1>Usuario</h1> <div id=></div>
+			<!--Área que mostrará carregando-->
+			<h2></h2>
+			<!--Tabela-->
+			<table id="minhaTabelaBusca1" class="table table-striped">
+				<caption>Retorno de dados</caption>
 				<thead>
-					<tr>
-						<th>
-							#
-						</th>
-						<th>
-							Product
-						</th>
-						<th>
-							Payment Taken
-						</th>
-						<th>
-							Status
-						</th>
-					</tr>
+					<th>id</th>
+					<th>Foto</th>
+					<th>Longitude</th>
+					<th>Latitude</th>
+					<th>Descricao</th>
+					<th>Data de Cadastro</th>
+				
 				</thead>
 				<tbody>
-					<tr>
-						<td>
-							1
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							01/04/2012
-						</td>
-						<td>
-							Default
-						</td>
-					</tr>
-					<tr class="active">
-						<td>
-							1
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							01/04/2012
-						</td>
-						<td>
-							Approved
-						</td>
-					</tr>
-					<tr class="success">
-						<td>
-							2
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							02/04/2012
-						</td>
-						<td>
-							Declined
-						</td>
-					</tr>
-					<tr class="warning">
-						<td>
-							3
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							03/04/2012
-						</td>
-						<td>
-							Pending
-						</td>
-					</tr>
-					<tr class="danger">
-						<td>
-							4
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							04/04/2012
-						</td>
-						<td>
-							Call in to confirm
-						</td>
-					</tr>
 				</tbody>
 			</table>
+		</section>
 		</div>
 	</div>
 </div>

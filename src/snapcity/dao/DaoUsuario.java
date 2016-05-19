@@ -179,12 +179,12 @@ public class DaoUsuario {
 		return usuario;
 	}
 	
-	public Usuario autenticacaoUsuario (String email, String senha){
+	public Usuario autenticacaoUsuario (Usuario usuario){
 		Usuario usuretorno = null;
 		try{
 			Connection c = ConectionFactory.getConnection();
 			 Statement stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * from usuarios where email = '" + email + "' and senha = '" +senha + "';");
+			ResultSet rs = stmt.executeQuery("SELECT * from usuarios where email = '" + usuario.getEmail() + "' and senha = '" +usuario.getSenha() + "';");
 			while (rs.next()){
 				usuretorno = new Usuario();
 				usuretorno.setId(rs.getInt("id"));

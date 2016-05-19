@@ -1,6 +1,6 @@
  function carregarItens(){
     	
-    	var itens = "", url = "http://localhost:8080/snapcity/rest/usuarios";
+    	var itens = "", url = "http://localhost:2020/snapcity/rest/usuarios";
 	  
     	//Capturar Dados Usando Método AJAX do jQuery
         $.ajax({

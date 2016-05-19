@@ -5,7 +5,7 @@ function exclui(){
 			del.id = $('#id').val();
 
 			$.ajax({
-				url : 'http://localhost:8080/snapcity/rest/evento/' + del.id,
+				url : 'http://localhost:2020/snapcity/rest/evento/' + del.id,
 				type : 'DELETE',
 				dataType : 'json',
 				success : function(data, textStatus, xhr) {
@@ -21,7 +21,7 @@ function exclui(){
 function carregarItens(){
     	
     	//variáveis
-    	var itens = "", url = "http://localhost:8080/snapcity/rest/evento";
+    	var itens = "", url = "http://localhost:2020/snapcity/rest/evento";
 	 
     	//Capturar Dados Usando Método AJAX do jQuery
         $.ajax({
