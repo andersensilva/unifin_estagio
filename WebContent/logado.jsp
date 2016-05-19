@@ -32,17 +32,30 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE_c3WG1QxjcPrwWNtp3MBZGnrues5Nk0&amp;sensor=false"></script>
+<script src="js/mapa.js"></script>
+
 <script>
 
-<% 
-String user = request.getParameter("user"); 
-%>
-var mostra = new Object();
-mostra.id = user;
+function getUrlVars () 
+{ 
+    var vars =  [], hash ; 
+    var hashes = window . location . href . slice ( window . location . href . indexOf ( '?' )  +  1 ). split ( '&' ); 
+    for ( var i =  0 ; i < hashes . length ; i ++) 
+    { 
+        hash = hashes [ i ]. split ( '=' ); 
+        vars . push ( hash [ 0 ]); 
+        vars [ hash [ 0 ]]  = hash [ 1 ]; 
+    } 
+    return vars ; 
+}
+
+var user = getUrlVars () [ "user" ]; 
+var nome = getUrlVars () [ "nome" ]; 
+var email = getUrlVars () [ "email" ];
 
 function carregarPontos() {
 	
-    $.getJSON('rest/usuarios/login', function(evento) {
+    $.getJSON('rest/usuarios/login?user='+user, function(evento) {
  
         $.each(evento , function(index, evento) {
  
@@ -68,32 +81,31 @@ function carregarPontos() {
 }
  
 carregarPontos();
+
+function imprimir(){
+	document.write("");
+	document.write("<h1>Bem Vindo<h1> <h3>" + nome + " </h3> <h3> " + email +"</h3");
+}
 </script>
 <body>
  <div class="container-fluid">
-
 	<div class="row">
 		<div class="col-md-12">
 			<div class="row">
 				<div class="col-md-4">
-				<div id="user"></div>
-				
+					<script>imprimir();</script>
 				</div>
 				<div class="col-md-8">
-				 		<div id="mapa" style="height: 500px; width: 100%">
-        				</div>
- 
-        				<!-- Arquivo de inicialização do mapa -->
-      					  <script src="js/mapa.js"></script>
+				 		<div id="mapa" style="height: 400px; width: 100%">
+        				</div>	  
 				</div>
 			</div>
+			
 			<h3>
 				Eventos Cadastrados
 			</h3>
 				<section>
 				 <body onload="carregarItensBusca1()">
-				 <input id="id6" name="id" type="hidden" value=>
-			<h1>Usuario</h1> <div id=></div>
 			<!--Área que mostrará carregando-->
 			<h2></h2>
 			<!--Tabela-->

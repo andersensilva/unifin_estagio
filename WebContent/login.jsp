@@ -49,7 +49,7 @@ $(document).ready(function() {
 			success : function (data, textStatus, xhr) {
 					
 					for(var i = 0; i<data.length; i++){
-					var url = "http://localhost:2020/snapcity/logado.jsp?user="+data[i].id;  
+					var url = "http://localhost:2020/snapcity/logado.jsp?user="+data[i].id+"&nome="+data[i].nome+"&email="+data[i].email;  
 					  $(location).attr('href', url);	
 					}
 			},

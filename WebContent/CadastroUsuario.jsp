@@ -42,16 +42,26 @@ $(document).ready(function() {
 			data : JSON.stringify({
 				nome : $('#nome').val(),
 				senha : $('#senha').val(),
-				email : $('#email').val()
+				email : $('#email').val(),
+				
 			}),
+		
+			error: function (data, textStatus, xhr) {
+					console.log(data);
+					var url = "http://localhost:2020/snapcity/logado.jsp?user="+data.id+"&nome="+data.nome+"&email="+data.email;  
+					  $(location).attr('href', url);	
+              },
+          	
 			success : function(data) {
 				console.log(data);
+					var url = "http://localhost:2020/snapcity/logado.jsp?user="+data.id+"&nome="+data.nome+"&email="+data.email;  
+					  $(location).attr('href', url);	
+				
 
 			}
 
 		});
 	});
-
 });
  
 
@@ -81,7 +91,7 @@ $(document).ready(function() {
 						<label for="inputsm">Email</label> <input class="form-control"
 							id="email" name="email" type="text">
 					</div>
-					<input type="submit" id="cadastrar" class="btn btn-default"
+					<input type="submit" id="cadastrar" class="btn btn-default" 
 						value="Enviar" />
 
 				</form>

@@ -106,7 +106,7 @@ public class UsuarioHandler {
 		DaoUsuario dao = new DaoUsuario();
 		Usuario user = DaoUsuario.fromJSON(jsonString);
 		dao.insereUsuario(user);
-		return Response.ok().build();
+		return Response.ok(200).build();
 		}
 
 
