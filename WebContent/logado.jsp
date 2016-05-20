@@ -55,7 +55,7 @@ var email = getUrlVars () [ "email" ];
 
 function carregarPontos() {
 	
-    $.getJSON('rest/usuarios/login?user='+user, function(evento) {
+    $.getJSON('rest/usuarios/'+user+'/evento', function(evento) {
  
         $.each(evento , function(index, evento) {
  
@@ -84,16 +84,19 @@ carregarPontos();
 
 function imprimir(){
 	document.write("");
-	document.write("<h1>Bem Vindo<h1> <h3>" + nome + " </h3> <h3> " + email +"</h3");
+	document.write(" <h3>" + nome + " </h3> <h3> " + email +"</h3");
 }
 </script>
 <body>
  <div class="container-fluid">
 	<div class="row">
+	<%@ include file="menu.jsp"%>
 		<div class="col-md-12">
 			<div class="row">
 				<div class="col-md-4">
-					<script>imprimir();</script>
+					<h1>Seja Bem Vindo!</h1>
+					<div id="imprimir();"></div>
+					
 				</div>
 				<div class="col-md-8">
 				 		<div id="mapa" style="height: 400px; width: 100%">

@@ -32,6 +32,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -65,8 +66,65 @@ $(document).ready(function() {
 	});
 
 });
-</script>
 
+	function callBackMudancaStatus(response){
+		//O Objeto de resposta é retornado com o campo de status, que faz com que
+		//o aplicativo saiba o status de login da pessoa atual
+		if(response.status === 'connected'){
+			//Casi o usuario esteja logado, execute minha api, recuperando as informações
+			$('#logar').hide();
+			$('#status').append('<a href="javascript:void(0);" id="logout" onclick="logOut();">Sair</a>');
+			testAPI();
+		}else if(response.status === 'not_authorized'){
+			$('#status').append('<p> Por Favor, faça login no aplicativo</p>');
+				$('#logout').remove();
+		}else{
+			//A pessoa não esta logada nem no facebook nem no aplicativo
+			//logo não é possivel recuperar informações
+			$('#logout').remove();
+			$('#status').append('<p>Faça login no Facebook</p>');
+		}
+	}
+	
+	window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '1055459707879922',
+	      xfbml      : true,
+	      version    : 'v2.6'
+	    });
+		
+		FB.getLoginStatus(function(response){
+			callBackMundancaStatus(response);
+		});
+	};
+	 (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "//connect.facebook.net/en_US/sdk.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+	
+	function testAPI(){
+		FB.api('/me', function(response){
+			var url = "http://localhost:2020/snapcity/logado.jsp?user="+response.id+"&nome="+response.name+"&email="+response.email;  
+			  $(location).attr('href', url);
+		});
+	}
+	
+	function logOut(){
+		FB.logout(function(response){
+			$('#status').html('Voce acaba de fazer Logout');
+		});
+	}
+	
+	function login(){
+		FB.login(function(response){
+			
+			callBackMudancaStatus(response);
+		});
+	}
+</script>
 
 <title>Login</title>
 </head>
@@ -111,8 +169,9 @@ $(document).ready(function() {
 
                                     <div class="col-sm-12 controls">
                                       <a id="btn-login" href="#" class="btn btn-success">Login  </a>
-                                      <a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>
-
+                                      <a id="logar" href="javascript:void(0)" class="btn btn-primary"  onclick="login();" >Login with Facebook</a>
+										<div id="status"></div>
+	
                                     </div>
                                 </div>
 
