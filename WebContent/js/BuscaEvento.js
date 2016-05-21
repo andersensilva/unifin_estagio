@@ -1,7 +1,7 @@
  function carregarItensBusca1(){
 	 	
-	 	var user = getUrlVars () [ "user" ]; 
-    	var itens = "", url = "http://localhost:2020/snapcity/rest/usuarios/"+user+"/evento";
+	 	var id = localStorage.getItem('id')
+    	var itens = "", url = "http://localhost:2020/snapcity/rest/usuarios/"+id+"/evento";
     	
     	//Capturar Dados Usando Método AJAX do jQuery
         $.ajax({

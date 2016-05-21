@@ -50,8 +50,12 @@ $(document).ready(function() {
 			success : function (data, textStatus, xhr) {
 					
 					for(var i = 0; i<data.length; i++){
-					var url = "http://localhost:2020/snapcity/logado.jsp?user="+data[i].id+"&nome="+data[i].nome+"&email="+data[i].email;  
+					localStorage . setItem ( 'nome' , data[i].nome );
+					localStorage . setItem ( 'id' , data[i].id );
+					localStorage . setItem ( 'email' , data[i].email );
+					var url = "http://localhost:2020/snapcity/logado.jsp";  
 					  $(location).attr('href', url);	
+					  
 					}
 			},
 			error: function (data, textStatus, xhr) {
@@ -107,7 +111,11 @@ $(document).ready(function() {
 	
 	function testAPI(){
 		FB.api('/me', function(response){
-			var url = "http://localhost:2020/snapcity/logado.jsp?user="+response.id+"&nome="+response.name+"&email="+response.email;  
+			 console.log(response);
+			localStorage . setItem ( 'nome' , response.name );
+			localStorage . setItem ( 'id' , response.id );
+			//localStorage . setItem ( 'email' , response.email );
+			var url = "http://localhost:2020/snapcity/logado.jsp";  
 			  $(location).attr('href', url);
 		});
 	}

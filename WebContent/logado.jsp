@@ -49,13 +49,15 @@ function getUrlVars ()
     return vars ; 
 }
 
-var user = getUrlVars () [ "user" ]; 
-var nome = getUrlVars () [ "nome" ]; 
-var email = getUrlVars () [ "email" ];
+var nome = localStorage.nome
+var id = localStorage.id 
+var email = localStorage.email
+
+
 
 function carregarPontos() {
 	
-    $.getJSON('rest/usuarios/'+user+'/evento', function(evento) {
+    $.getJSON('rest/usuarios/'+id+'/evento', function(evento) {
  
         $.each(evento , function(index, evento) {
  
@@ -83,8 +85,8 @@ function carregarPontos() {
 carregarPontos();
 
 function imprimir(){
-	document.write("");
-	document.write(" <h3>" + nome + " </h3> <h3> " + email +"</h3");
+	document.write("<h1>"+localStorage.nome+"</h1>");
+	document.write("<h3>"+localStorage.email+"</h3>");
 }
 </script>
 <body>
@@ -95,7 +97,7 @@ function imprimir(){
 			<div class="row">
 				<div class="col-md-4">
 					<h1>Seja Bem Vindo!</h1>
-					<div id="imprimir();"></div>
+					<script>imprimir();</script>
 					
 				</div>
 				<div class="col-md-8">
