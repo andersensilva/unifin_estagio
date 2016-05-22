@@ -179,7 +179,7 @@ public class DaoUsuario {
 		return usuario;
 	}
 	
-	public Usuario autenticacaoUsuario (Usuario usuario){
+	public static Usuario autenticacaoUsuario (Usuario usuario){
 		Usuario usuretorno = null;
 		try{
 			Connection c = ConectionFactory.getConnection();
@@ -209,6 +209,7 @@ public class DaoUsuario {
 		obj.put("email", usuario.getEmail());
 		obj.put("datacriacao", usuario.getDatacriacao());
 		obj.put("id", usuario.getId());
+		
 		return obj;
 	}
 

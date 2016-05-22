@@ -38,6 +38,7 @@ $(document).ready(function() {
 			url : "http://localhost:2020/snapcity/rest/usuarios",
 			contentType : "application/json; charset=utf-8",
 			type : "post",
+			async: false,
 			dataType : "json",
 			data : JSON.stringify({
 				nome : $('#nome').val(),
@@ -48,14 +49,17 @@ $(document).ready(function() {
 		
 			error: function (data, textStatus, xhr) {
 					console.log(data);
-					var url = "http://localhost:2020/snapcity/logado.jsp?user="+data.id+"&nome="+data.nome+"&email="+data.email;  
-					  $(location).attr('href', url);	
+						
               },
           	
 			success : function(data) {
-				console.log(data);
-					var url = "http://localhost:2020/snapcity/logado.jsp?user="+data.id+"&nome="+data.nome+"&email="+data.email;  
-					  $(location).attr('href', url);	
+				for(var i = 0; i<data.length; i++){
+					localStorage . setItem ( 'nome' , data[i].nome );
+					localStorage . setItem ( 'id' , data[i].id );
+					localStorage . setItem ( 'email' , data[i].email );
+					var url = "http://localhost:2020/snapcity/logado.jsp";  
+					  $(location).attr('href', url);
+				}
 				
 
 			}
@@ -91,7 +95,7 @@ $(document).ready(function() {
 						<label for="inputsm">Email</label> <input class="form-control"
 							id="email" name="email" type="text">
 					</div>
-					<input type="submit" id="cadastrar" class="btn btn-default" 
+					<input type="button" id="cadastrar" class="btn btn-default" 
 						value="Enviar" />
 
 				</form>

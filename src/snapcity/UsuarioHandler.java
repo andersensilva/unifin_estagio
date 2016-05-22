@@ -23,6 +23,8 @@ import snapcity.dao.DaoUsuario;
 import snapcity.model.Evento;
 import snapcity.model.Usuario;
 
+ 
+
 /**
  * Classe que trata o rest
  * @author  Andersen Silva e Marcelo
@@ -30,6 +32,8 @@ import snapcity.model.Usuario;
  */
 @Path("/usuarios")
 public class UsuarioHandler {
+	
+	
 	
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -77,12 +81,15 @@ public class UsuarioHandler {
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response loginUsuario(String jsonString){
+		
 		DaoUsuario dao = new DaoUsuario();
 		Usuario user = DaoUsuario.fromJSON(jsonString);
 		Usuario login = dao.autenticacaoUsuario(user);
+		System.out.println(login);
 		JSONObject json = DaoUsuario.toJson(login);
 		
 		if(json != null){
+			System.out.println(json);
 			Integer id = json.getInt("id");
 			Usuario usr = new Usuario();
 			usr.setId(id);
@@ -105,9 +112,13 @@ public class UsuarioHandler {
 	public Response postUsuario(String jsonString) {
 		DaoUsuario dao = new DaoUsuario();
 		Usuario user = DaoUsuario.fromJSON(jsonString);
+		Usuario login = DaoUsuario.autenticacaoUsuario(user);
+		JSONObject json = DaoUsuario.toJson(login);
+		if(login == null ){
 		dao.insereUsuario(user);
-		return Response.ok(200).build();
 		}
+		return Response.ok(200).entity(json.toString()).build();
+	}
 
 
 	@PUT

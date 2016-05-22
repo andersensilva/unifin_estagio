@@ -36,18 +36,12 @@
 
 <script>
 
-function getUrlVars () 
-{ 
-    var vars =  [], hash ; 
-    var hashes = window . location . href . slice ( window . location . href . indexOf ( '?' )  +  1 ). split ( '&' ); 
-    for ( var i =  0 ; i < hashes . length ; i ++) 
-    { 
-        hash = hashes [ i ]. split ( '=' ); 
-        vars . push ( hash [ 0 ]); 
-        vars [ hash [ 0 ]]  = hash [ 1 ]; 
-    } 
-    return vars ; 
+function sair(){
+	localStorage.clear();
+	var url = "http://localhost:2020/snapcity/login.jsp";  
+	$(location).attr('href', url);
 }
+
 
 var nome = localStorage.nome
 var id = localStorage.id 
@@ -87,12 +81,15 @@ carregarPontos();
 function imprimir(){
 	document.write("<h1>"+localStorage.nome+"</h1>");
 	document.write("<h3>"+localStorage.email+"</h3>");
+	document.write("<h3>"+localStorage.id+"</h3>");
 }
 </script>
 <body>
  <div class="container-fluid">
 	<div class="row">
 	<%@ include file="menu.jsp"%>
+	<input type="submit" id="sair" class="btn btn-default" 
+					onclick="sair();"	value="Sair" />
 		<div class="col-md-12">
 			<div class="row">
 				<div class="col-md-4">

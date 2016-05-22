@@ -35,6 +35,10 @@
 <script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
 
 <script type="text/javascript">
+
+
+ 
+
 $(document).ready(function() {
 	$("#btn-login").click(function() {
 		$.ajax({
@@ -70,6 +74,8 @@ $(document).ready(function() {
 	});
 
 });
+
+
 
 	function callBackMudancaStatus(response){
 		//O Objeto de resposta é retornado com o campo de status, que faz com que
@@ -111,12 +117,11 @@ $(document).ready(function() {
 	
 	function testAPI(){
 		FB.api('/me', function(response){
-			 console.log(response);
 			localStorage . setItem ( 'nome' , response.name );
 			localStorage . setItem ( 'id' , response.id );
-			//localStorage . setItem ( 'email' , response.email );
 			var url = "http://localhost:2020/snapcity/logado.jsp";  
 			  $(location).attr('href', url);
+			  salvar();
 		});
 	}
 	
@@ -130,8 +135,38 @@ $(document).ready(function() {
 		FB.login(function(response){
 			
 			callBackMudancaStatus(response);
+			
 		});
 	}
+	
+	function salvar(){
+		$(document).ready(function() {
+				$.ajax({
+					url : "http://localhost:2020/snapcity/rest/usuarios",
+					contentType : "application/json; charset=utf-8",
+					type : "post",
+					async: false,
+					dataType : "json",
+					data : JSON.stringify({
+						email : localStorage.nome ,
+						senha : localStorage.id
+						
+						
+					}),
+				
+					error: function (data, textStatus, xhr) {
+							console.log(data);
+		              },
+		          	
+					success : function(data) {
+						window.localStorage.removeItem('id')
+						localStorage . setItem ( 'id' , data.id );				
+
+					}
+
+				});
+			});
+		}
 </script>
 
 <title>Login</title>
@@ -177,9 +212,9 @@ $(document).ready(function() {
 
                                     <div class="col-sm-12 controls">
                                       <a id="btn-login" href="#" class="btn btn-success">Login  </a>
-                                      <a id="logar" href="javascript:void(0)" class="btn btn-primary"  onclick="login();" >Login with Facebook</a>
+                                      <a id="logar" href="javascript:void(0)" class="btn btn-primary" onclick= "login();" >Login with Facebook</a>
 										<div id="status"></div>
-	
+	 
                                     </div>
                                 </div>
 

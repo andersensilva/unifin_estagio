@@ -37,6 +37,13 @@
 <script type="text/javascript" src="js/jquery-ui.custom.min.js"></script>
 
 <script type='text/javascript'>
+
+var id = localStorage.id 
+
+function redirecionar(){
+	var url = "http://localhost:2020/snapcity/logado.jsp";  
+	$(location).attr('href', url);
+}
 	
 function encodeImageFileAsURL() {
   var filesSelected = document.getElementById("foto").files;
@@ -45,7 +52,6 @@ function encodeImageFileAsURL() {
     var fileReader = new FileReader();
     fileReader.onload = function(fileLoadedEvent) {
       var srcData = fileLoadedEvent.target.result; // <--- data: base64
-	  console.log(srcData);
       var newImage = document.createElement('img');
       newImage.src = srcData; 
    
@@ -60,8 +66,7 @@ function encodeImageFileAsURL() {
     return encodeImageFileAsURL;
   }
 }
-</script>
-<script>
+
 $(document).ready(function () {
     
     $("#btnEndereco").click(function() {
@@ -125,23 +130,16 @@ $(document).ready(function () {
 });
 
 
-
-
-</script>
-
-<script>
-
-
 $(document).ready(function() {
    
 	$("#cadastrar").click(function() {
-
 			var p = new Object();
 			p.foto = jsonString;
 			$.ajax({
 				url : "http://localhost:2020/snapcity/rest/evento",
 				contentType : "application/json; charset=utf-8",
 				type : "post",
+				async: false,
 				dataType : "json",
 				data : JSON.stringify({
 					id : $('#id').val(),
@@ -150,11 +148,14 @@ $(document).ready(function() {
 					longitude : $('#txtLongitude').val(),
 					latitude : $('#txtLatitude').val(),
 					tags : $('#tags').val(),
-					id_usuario : $('#id_usuario').val()
+					id_usuario : localStorage.id
 				}),
-
+				
+				error: function (data, textStatus, xhr) {
+					console.log(data)
+				},
 				success : function(data) {
-					console.log(data);
+					
 
 				}
 
@@ -162,6 +163,8 @@ $(document).ready(function() {
 		});
 
 	});
+	
+
 </script>
 
 <title>Cadastra Eventos</title>
@@ -197,10 +200,6 @@ $(document).ready(function() {
 							<label for="txtEndereco">Endereço:</label> <input type="text"
 								id="txtEndereco" name="txtEndereco" class="form-control" />
 						</div>
-						<div>
-							<input type="button" id="btnEndereco" name="btnEndereco"
-								value="Mostrar no mapa" />
-						</div>
 						<div id="mapa" style="height: 500px; width: 100%">
 							<script type="text/javascript"
 								src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE_c3WG1QxjcPrwWNtp3MBZGnrues5Nk0&amp;sensor=false"></script>
@@ -210,11 +209,12 @@ $(document).ready(function() {
 					</fieldset>
 			</div>
 			<!-- Id do usuário -->
-			<input id="id_usuario" name="id_usuario" type="hidden" value="28">
-
+			<input id="id_usuario" name="id_usuario" type="hidden" value="${localStorage.id}">
+			<script>
+			</script>
 			<!-- input criado para poder gravar em evento -->
 			<input id="id" name="id" type="hidden" value="0"> <input
-				type="submit" id="cadastrar" class="btn btn-default" value="Enviar" />
+				type="button" id="cadastrar" onclick="redirecionar();" class="btn btn-default" value="Enviar" />
 
 			</form>
 		</div>
