@@ -1,4 +1,6 @@
- function carregarItensBusca1(){
+ 
+
+function carregarItensBusca1(){
 	 	
 	 	var id = localStorage.getItem('id')
     	var itens = "", url = "http://localhost:2020/snapcity/rest/usuarios/"+id+"/evento";
@@ -30,7 +32,14 @@
     				    itens += "<td>" + retorno[i].datacriacao + "</td>";
  //    				    itens += "<td>" + retorno[i].Empresa + "</td>";
 //    				    itens += "<td>" + retorno[i].Setor + "</td>";
-    				    itens += "</tr>";
+    				    itens += "<td> " +
+    				        				    			"<form>" +
+    				        				    				"<input type=\"button\" id=\"id\" name=\"excluir\" class=\"btn btn-danger dropdown-toggle\" onclick=\"exclui('$retorno[i].id');\" value=\"excluir\">" +
+    				        				    						
+    				        				    				
+    				        				    			"</form>" +
+    				      				    		"</td>";
+    				         				    itens += "</tr>";
     			    }
     			    //Preencher a Tabela
     			    $("#minhaTabelaBusca1 tbody").html(itens);

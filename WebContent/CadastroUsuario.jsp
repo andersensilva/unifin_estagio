@@ -49,7 +49,9 @@ $(document).ready(function() {
 		
 			error: function (data, textStatus, xhr) {
 					console.log(data);
-						
+					alert("Voce já tem cadastro com esse email");
+					var url = "http://localhost:2020/snapcity/login.jsp";  
+					  $(location).attr('href', url);	
               },
           	
 			success : function(data) {

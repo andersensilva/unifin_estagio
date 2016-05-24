@@ -116,9 +116,11 @@ $(document).ready(function() {
 	   }(document, 'script', 'facebook-jssdk'));
 	
 	function testAPI(){
-		FB.api('/me', function(response){
+		FB.api('/me?fields=id, email, first_name, gender, last_name, link, locale, name ', function(response){
+			console.log(response)
 			localStorage . setItem ( 'nome' , response.name );
 			localStorage . setItem ( 'id' , response.id );
+			localStorage . setItem ( 'email', response.email);
 			var url = "http://localhost:2020/snapcity/logado.jsp";  
 			  $(location).attr('href', url);
 			  salvar();
@@ -128,7 +130,7 @@ $(document).ready(function() {
 	function logOut(){
 		FB.logout(function(response){
 			$('#status').html('Voce acaba de fazer Logout');
-		});
+		},{scope: 'email'});
 	}
 	
 	function login(){
@@ -148,19 +150,22 @@ $(document).ready(function() {
 					async: false,
 					dataType : "json",
 					data : JSON.stringify({
-						email : localStorage.nome ,
-						senha : localStorage.id
-						
+						nome : localStorage.nome ,
+						senha : localStorage.id,
+						email : localStorage.email 
 						
 					}),
 				
 					error: function (data, textStatus, xhr) {
-							console.log(data);
+						console.log(data)
+						window.localStorage.removeItem('id')
+						localStorage . setItem ( 'id' , data.id )
+						
 		              },
 		          	
 					success : function(data) {
 						window.localStorage.removeItem('id')
-						localStorage . setItem ( 'id' , data.id );				
+						localStorage . setItem ( 'id' , data.id )	
 
 					}
 

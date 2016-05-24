@@ -112,12 +112,20 @@ public class UsuarioHandler {
 	public Response postUsuario(String jsonString) {
 		DaoUsuario dao = new DaoUsuario();
 		Usuario user = DaoUsuario.fromJSON(jsonString);
-		Usuario login = DaoUsuario.autenticacaoUsuario(user);
+		Usuario login = DaoUsuario.verificaUsuario(user);
+		System.out.println(login);
+		if(login != null){
 		JSONObject json = DaoUsuario.toJson(login);
+		return Response.status(200).entity(json.toString()).build();
+		}
 		if(login == null ){
 		dao.insereUsuario(user);
+		Usuario busca = DaoUsuario.verificaUsuario(user);
+		JSONObject json = DaoUsuario.toJson(busca);
+		return Response.status(200).entity(json.toString()).build();
 		}
-		return Response.ok(200).entity(json.toString()).build();
+		return Response.ok().build();
+		
 	}
 
 

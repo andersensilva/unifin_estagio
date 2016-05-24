@@ -201,6 +201,29 @@ public class DaoUsuario {
 		}
 		return usuretorno;
 	}
+	
+	public static Usuario verificaUsuario (Usuario usuario){
+		Usuario usuretorno = null;
+		try{
+			Connection c = ConectionFactory.getConnection();
+			 Statement stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * from usuarios where email = '" + usuario.getEmail() + "' and senha = '" +usuario.getSenha() + "' and nome = '" + usuario.getNome() + "';");
+			while (rs.next()){
+				usuretorno = new Usuario();
+				usuretorno.setId(rs.getInt("id"));
+				usuretorno.setNome(rs.getString("nome"));
+				usuretorno.setEmail(rs.getString("email"));
+				usuretorno.setSenha(rs.getString("senha"));
+			}
+			rs.close();
+			c.close();
+			stmt.close();
+
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+		return usuretorno;
+	}
 
 	public static JSONObject toJson (Usuario usuario) {
 		JSONObject obj = new JSONObject();

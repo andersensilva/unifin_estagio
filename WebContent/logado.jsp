@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="org.json.JSONException"%>
@@ -47,6 +48,28 @@ var nome = localStorage.nome
 var id = localStorage.id 
 var email = localStorage.email
 
+function exclui(){
+
+
+			$.ajax({
+				url : 'http://localhost:2020/snapcity/rest/usuarios/'+id,
+				type : 'DELETE',
+				dataType : 'json',
+				//data:del,
+				success : function(data, textStatus, xhr) {
+					console.log(data);
+
+				},
+				error : function(xhr, textStatus, errorThrown) {
+					var url = "http://localhost:2020/snapcity/logado.jsp";  
+					  $(location).attr('href', url);
+					console.log('Error in Operation');
+				}
+			});
+		
+	
+}
+
 
 
 function carregarPontos() {
@@ -81,7 +104,6 @@ carregarPontos();
 function imprimir(){
 	document.write("<h1>"+localStorage.nome+"</h1>");
 	document.write("<h3>"+localStorage.email+"</h3>");
-	document.write("<h3>"+localStorage.id+"</h3>");
 }
 </script>
 <body>
@@ -120,6 +142,7 @@ function imprimir(){
 					<th>Latitude</th>
 					<th>Descricao</th>
 					<th>Data de Cadastro</th>
+					<th>Excluir</th>
 				
 				</thead>
 				<tbody>
