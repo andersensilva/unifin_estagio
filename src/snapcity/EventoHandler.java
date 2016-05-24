@@ -128,5 +128,15 @@ public class EventoHandler   {
 		daoEventos.atualizaEvento(evento);
 		return Response.ok().build();
 	}
+	
+	@POST
+    @Path("/delete")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response excluievento(String jsonString) {
+		DaoUsuario dao = new DaoUsuario();
+	
+       // dao.excluiUsuario(usr);
+        return Response.ok().build();
+    }
 
 }

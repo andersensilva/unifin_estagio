@@ -48,26 +48,26 @@ var nome = localStorage.nome
 var id = localStorage.id 
 var email = localStorage.email
 
-function exclui(){
-
-
+function exclui(id){
+	
+			var del = new Object();
+			del.id = id;
+			
 			$.ajax({
-				url : 'http://localhost:2020/snapcity/rest/usuarios/'+id,
-				type : 'DELETE',
-				dataType : 'json',
-				//data:del,
-				success : function(data, textStatus, xhr) {
+				url : "http://localhost:2020/snapcity/rest/evento/delete",
+				contentType : "application/json; charset=utf-8",
+				type : "post",
+				dataType : "json",
+				data : JSON.stringify({
+					id : del.id,
+					
+				}),
+				success : function(data) {
 					console.log(data);
 
-				},
-				error : function(xhr, textStatus, errorThrown) {
-					var url = "http://localhost:2020/snapcity/logado.jsp";  
-					  $(location).attr('href', url);
-					console.log('Error in Operation');
 				}
+
 			});
-		
-	
 }
 
 
@@ -104,6 +104,7 @@ carregarPontos();
 function imprimir(){
 	document.write("<h1>"+localStorage.nome+"</h1>");
 	document.write("<h3>"+localStorage.email+"</h3>");
+	document.write("<h3>"+localStorage.id+"</h3>");
 }
 </script>
 <body>

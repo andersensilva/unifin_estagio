@@ -30,11 +30,9 @@ function carregarItensBusca1(){
     				    itens += "<td>" + retorno[i].latitude + "</td>";
     				    itens += "<td>" + retorno[i].descricao + "</td>";
     				    itens += "<td>" + retorno[i].datacriacao + "</td>";
- //    				    itens += "<td>" + retorno[i].Empresa + "</td>";
-//    				    itens += "<td>" + retorno[i].Setor + "</td>";
     				    itens += "<td> " +
     				        				    			"<form>" +
-    				        				    				"<input type=\"button\" id=\"id\" name=\"excluir\" class=\"btn btn-danger dropdown-toggle\" onclick=\"exclui('$retorno[i].id');\" value=\"excluir\">" +
+    				        				    				"<input type=\"button\" id=\"excluir\" name=\"excluir\" class=\"btn btn-danger \" onclick=\"exclui("+retorno[i].id+")\" value=\"excluir\"/>" 
     				        				    						
     				        				    				
     				        				    			"</form>" +

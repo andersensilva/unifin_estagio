@@ -84,7 +84,7 @@ public class UsuarioHandler {
 		
 		DaoUsuario dao = new DaoUsuario();
 		Usuario user = DaoUsuario.fromJSON(jsonString);
-		Usuario login = dao.autenticacaoUsuario(user);
+		Usuario login = DaoUsuario.autenticacaoUsuario(user);
 		System.out.println(login);
 		JSONObject json = DaoUsuario.toJson(login);
 		
@@ -146,4 +146,5 @@ public class UsuarioHandler {
         dao.excluiUsuario(id);
         return Response.ok().build();
     }
+	
 }
