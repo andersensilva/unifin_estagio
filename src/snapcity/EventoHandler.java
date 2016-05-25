@@ -18,8 +18,9 @@ import java.util.Iterator;
  
  import org.json.JSONArray;
  import org.json.JSONObject;
- 
- import snapcity.dao.DaoEvento;
+
+import jdk.nashorn.internal.parser.JSONParser;
+import snapcity.dao.DaoEvento;
  import snapcity.dao.DaoUsuario;
  import snapcity.model.Evento;
  import snapcity.model.Usuario;
@@ -134,8 +135,13 @@ public class EventoHandler   {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response excluievento(String jsonString) {
 		DaoUsuario dao = new DaoUsuario();
-	
-       // dao.excluiUsuario(usr);
+		Usuario usuario = new Usuario();
+		JSONObject obj = new JSONObject(jsonString);
+		Integer id = obj.getInt("id");
+		usuario.setId(id);;
+		System.out.println(usuario);
+		System.out.println(id);
+        dao.excluiUsuario(id);
         return Response.ok().build();
     }
 
