@@ -31,6 +31,13 @@ function carregarItensBusca1(){
     				    itens += "<td>" + retorno[i].descricao + "</td>";
     				    itens += "<td>" + retorno[i].datacriacao + "</td>";
     				    itens += "<td> " +
+		    			"<form>" +
+		    			"<input name=\"atualizar\" onclick=\"idevento("+retorno[i].id+")\" type=\"button\" href=\"#myModal\" data-toggle=\"modal\" class=\"btn btn-warning\" value=\"Atualizar\"/>"
+		    						
+		    				
+		    			"</form>" +
+		    		"</td>";
+    				    itens += "<td> " +
     				        				    			"<form>" +
     				        				    				"<input type=\"button\" id=\"excluir\" name=\"excluir\" class=\"btn btn-danger \" onclick=\"exclui("+retorno[i].id+")\" value=\"excluir\"/>" 
     				        				    						
@@ -38,6 +45,7 @@ function carregarItensBusca1(){
     				        				    			"</form>" +
     				      				    		"</td>";
     				         				    itens += "</tr>";
+    				    
     			    }
     			    //Preencher a Tabela
     			    $("#minhaTabelaBusca1 tbody").html(itens);

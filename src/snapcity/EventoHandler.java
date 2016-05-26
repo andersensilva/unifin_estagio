@@ -134,14 +134,12 @@ public class EventoHandler   {
     @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response excluievento(String jsonString) {
-		DaoUsuario dao = new DaoUsuario();
+		DaoEvento dao = new DaoEvento();
 		Usuario usuario = new Usuario();
 		JSONObject obj = new JSONObject(jsonString);
 		Integer id = obj.getInt("id");
 		usuario.setId(id);;
-		System.out.println(usuario);
-		System.out.println(id);
-        dao.excluiUsuario(id);
+        dao.excluiEvento(id);
         return Response.ok().build();
     }
 
