@@ -10,16 +10,13 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-
 import javax.imageio.ImageIO;
-
 import org.json.*;
-
 import snapcity.model.*;
 import snapcity.dao.banco.ConectionFactory;
-import snapcity.model.Usuario;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
+
 /**
  * Classe de Dao de Eventos
  * @author Marcelo e Andersen
@@ -31,9 +28,7 @@ public class DaoEvento {
 	 * Retorna todos os eventos cadastros.
 	 * @return Lista de {@link Evento} mostra todos eventos.
 	 */
-	public List<Evento> mostrarEvento() {
-
-		// TODO buscaEventos
+	public List<Evento> buscaEventos() {
 
 		ArrayList<Evento> eventos = new ArrayList<Evento>();
 
@@ -59,8 +54,6 @@ public class DaoEvento {
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
-		// TODO remover todos os System.out
-		System.out.println("Operacao com mostraEventos com sucesso");
 		return eventos;
 	}
 
@@ -100,10 +93,8 @@ public class DaoEvento {
 			rs.close();
 			c.close();
 			stmt.close();
-
-			System.out.println("Operacao com buscaEventos com sucesso");
-
 			return evento;
+			
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			return null;
@@ -111,7 +102,7 @@ public class DaoEvento {
 	}
 
 	/**
-	 * Método que Exclui evento por ID
+	 * Metodo que Exclui evento por ID
 	 * @param idEvento
 	 * @return Exclui {@link excluiEvento} evento
 	 */
@@ -126,8 +117,6 @@ public class DaoEvento {
 			c.close();
 			stmt.close();
 
-			// TODO remover system.out TODOS eles
-			System.out.println("Operacao com exluirEventos com sucesso");
 
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
@@ -178,7 +167,7 @@ public class DaoEvento {
 			c.commit();
 			stmt.close();
 			c.close();
-			System.out.println("Evento foi criado com sucesso");
+			
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
 		}
@@ -186,7 +175,7 @@ public class DaoEvento {
 
 
 	/** 
-	 * Método que retorna imagem codificada em base64
+	 * Metodo que retorna imagem codificada em base64
 	 * @param endereco
 	 * @return {@link encodeToString}
 	 */

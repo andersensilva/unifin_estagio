@@ -38,7 +38,7 @@
 
 
  
-
+//Função que envia dados ao banco e torna o cadastro caso tenha 
 $(document).ready(function() {
 	$("#btn-login").click(function() {
 		$.ajax({
@@ -76,8 +76,8 @@ $(document).ready(function() {
 });
 
 
-
-	function callBackMudancaStatus(response){
+//Função para fazer login através do Facebook
+function callBackMudancaStatus(response){
 		//O Objeto de resposta é retornado com o campo de status, que faz com que
 		//o aplicativo saiba o status de login da pessoa atual
 		if(response.status === 'connected'){
@@ -87,11 +87,9 @@ $(document).ready(function() {
 			testAPI();
 		}else if(response.status === 'not_authorized'){
 			$('#status').append('<p> Por Favor, faça login no aplicativo</p>');
-				$('#logout').remove();
 		}else{
 			//A pessoa não esta logada nem no facebook nem no aplicativo
 			//logo não é possivel recuperar informações
-			$('#logout').remove();
 			$('#status').append('<p>Faça login no Facebook</p>');
 		}
 	}
@@ -130,7 +128,7 @@ $(document).ready(function() {
 	function logOut(){
 		FB.logout(function(response){
 			$('#status').html('Voce acaba de fazer Logout');
-		},{scope: 'email'});
+		});
 	}
 	
 	function login(){
@@ -138,10 +136,11 @@ $(document).ready(function() {
 			
 			callBackMudancaStatus(response);
 			
-		});
+		},{scope: 'email'});
 	}
 	
-	function salvar(){
+//Função que salva no banco os dados do usuario que fez login pelo Facebook	
+function salvar(){
 		$(document).ready(function() {
 				$.ajax({
 					url : "http://localhost:2020/snapcity/rest/usuarios",

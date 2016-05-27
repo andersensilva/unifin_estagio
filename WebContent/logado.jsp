@@ -40,7 +40,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<style type="text/css">
+
+
+<style type="text/css"> //janela modal
     .bs-example{
             margin: 20px;
     }
@@ -49,11 +51,18 @@
 
 <script>
 
+var nome = localStorage.nome
+var id = localStorage.id 
+var email = localStorage.email
+
+//função usada para captar o id do evento para poder alterar
 function idevento(id){
 	localStorage . setItem ( 'idevento' , id );
 	
 }
 
+
+//função para passar imagem para base 64
 function encodeImageFileAsURL() {
 	var filesSelected = document.getElementById("foto").files;
 	if (filesSelected.length > 0) {
@@ -71,6 +80,8 @@ function encodeImageFileAsURL() {
 	}
 }
 
+
+//função para quando clicar em sair limpar todos os cookies
 function sair(){
 	localStorage.clear();
 	var url = "http://localhost:2020/snapcity/login.jsp";  
@@ -78,10 +89,8 @@ function sair(){
 }
 
 
-var nome = localStorage.nome
-var id = localStorage.id 
-var email = localStorage.email
 
+//Função para excluir um evento
 function exclui(id){
 	
 			var del = new Object();
@@ -106,7 +115,7 @@ function exclui(id){
 }
 
 
-
+//Funão que carrega os pontos conforme seus eventos
 function carregarPontos() {
 	
     $.getJSON('rest/usuarios/'+id+'/evento', function(evento) {
@@ -136,43 +145,7 @@ function carregarPontos() {
  
 carregarPontos();
 
-function imprimir(){
-	document.write("<h1>"+localStorage.nome+"</h1>");
-	document.write("<h3>"+localStorage.email+"</h3>");
-	document.write("<h3>"+localStorage.id+"</h3>");
-}
-
-$(document).ready(function() {
-	  
-	$("#atualizar").click(function() {
-			var p = new Object();
-			p.foto = jsonString;
-			$.ajax({
-				url : "http://localhost:2020/snapcity/rest/evento",
-				contentType : "application/json; charset=utf-8",
-				type : "PUT",
-				dataType : "json",
-				data : JSON.stringify({
-					id : localStorage.idevento,
-					foto : p.foto,
-					descricao : $('#descricao').val(),
-					longitude : $('#txtLongitude').val(),
-					latitude : $('#txtLatitude').val(),
-					tags : $('#tags').val(),
-					id_usuario : localStorage.id
-				}),
-				success : function(data) {
-					console.log(data);
-				}
-			});
-			var url = "http://localhost:2020/snapcity/logado.jsp";  
-			$(location).attr('href', url);
-		});
-	});
-	
-
-
-
+//Função que pega o endereço e pega a latitude e a longitude e cadastra no banco
 $(document).ready(function () {
     
     $("#btnEndereco").click(function() {
@@ -235,6 +208,41 @@ $(document).ready(function () {
     }
 });
 
+
+function imprimir(){
+	document.write("<h1>"+localStorage.nome+"</h1>");
+	document.write("<h3>"+localStorage.email+"</h3>");
+}
+
+//Função para atualizar o evento
+$(document).ready(function() {
+	  
+	$("#atualizar").click(function() {
+			var p = new Object();
+			p.foto = jsonString;
+			$.ajax({
+				url : "http://localhost:2020/snapcity/rest/evento",
+				contentType : "application/json; charset=utf-8",
+				type : "PUT",
+				dataType : "json",
+				data : JSON.stringify({
+					id : localStorage.idevento,
+					foto : p.foto,
+					descricao : $('#descricao').val(),
+					longitude : $('#txtLongitude').val(),
+					latitude : $('#txtLatitude').val(),
+					tags : $('#tags').val(),
+					id_usuario : localStorage.id
+				}),
+				success : function(data) {
+					console.log(data);
+				}
+			});
+			var url = "http://localhost:2020/snapcity/logado.jsp";  
+			$(location).attr('href', url);
+		});
+	});
+	
 </script>
 <body>
  <div class="container-fluid">
@@ -343,8 +351,8 @@ $(document).ready(function () {
 					<input type="button" id="atualizar" class="btn btn-default" value="Enviar" />
                 
                 </div>
-                </div>
-                </div>
+         </div>
+  </div>
 
 </body>
 </html>

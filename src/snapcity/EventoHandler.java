@@ -25,16 +25,13 @@ import snapcity.dao.DaoEvento;
  import snapcity.model.Evento;
  import snapcity.model.Usuario;
 
-// TODO java doc
-
+ /**
+  * Classe que trata o rest de evento
+  * @author  Andersen Silva e Marcelo
+  *
+  */
 @Path("/evento")
 public class EventoHandler   {
-	
-	// TODO remover atributos de classe e coloca-los nos metodos
-	
-	DaoEvento daoEventos = new DaoEvento();
-	Evento modelEventos = new Evento();
-	Usuario usuario = new Usuario();
 	
 	/**
 	 * Retorna todos os eventos em formato json
@@ -42,44 +39,28 @@ public class EventoHandler   {
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getEvento() {
-		
-		// TODO getEventos
-		
-		List<Evento> evento = daoEventos.mostrarEvento();
-		
-		
+	public Response getEventos() {
+		DaoEvento daoEventos = new DaoEvento();
+		List<Evento> evento = daoEventos.buscaEventos();
 		JSONArray json = new JSONArray();
-		
 			for (Evento e : evento) {
 				 json.put(DaoEvento.toJson(e));
-			}
-			
-		
-			
-		return Response.ok().entity(json.toString()).build();
-		
-		
+			}	
+		return Response.ok().entity(json.toString()).build();	
 	}
 	
 	/**
 	 * Grava eventos recebendo dados em formato json
-	 * @param jsonString
+	 * @param evento
 	 * @return
 	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response postEvento(String jsonString) {
-		
-		// TODO renomear para insereEvento
-		
-		// TODO remover system e renomear jsonString para evento
-		
-		System.err.println(jsonString);
-		Evento evento = daoEventos.fromJson(jsonString);
-		 daoEventos.insereEvento(evento);
-		 // TODO remover entity
-		return Response.ok().entity("Cadastro Efetuado com Sucesso!").build();
+	public Response insereEvento(String evento) {
+		DaoEvento daoEventos = new DaoEvento();
+		Evento eventos = daoEventos.fromJson(evento);
+		 daoEventos.insereEvento(eventos);
+		return Response.ok().build();
 		}
 	
 	
@@ -92,10 +73,9 @@ public class EventoHandler   {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response buscaEvento(@PathParam("id") int id) {
-		// TODO java doc
+		DaoEvento daoEventos = new DaoEvento();
 		Evento eventos = daoEventos.buscaEvento(id);
 		JSONObject json = DaoEvento.toJson(eventos);
-		
 		return Response.ok().entity(json.toString()).build();		
 	}
 	
@@ -109,10 +89,9 @@ public class EventoHandler   {
     @Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("id") Integer id) {
-		System.out.println(id);
+		DaoEvento daoEventos = new DaoEvento();
 		daoEventos.excluiEvento(id);
-		// TODO entity remover
-		return Response.ok().entity("Evento de numero " +id+ " foi removido").build();
+		return Response.ok().build();
     }
 	
 	
@@ -123,23 +102,29 @@ public class EventoHandler   {
 	 */
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response putUsuario(String jsonString){
-		// TODO renomear para atualizaEvento
+	public Response atualizaEvento(String jsonString){
+		DaoEvento daoEventos = new DaoEvento();
 		Evento evento = daoEventos.fromJson(jsonString);
 		daoEventos.atualizaEvento(evento);
 		return Response.ok().build();
 	}
 	
+	
+	/**
+	 * Classe que recebe id do evento e exclui ele do banco de dados
+	 * @param jsonString
+	 * @return
+	 */
 	@POST
     @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response excluievento(String jsonString) {
-		DaoEvento dao = new DaoEvento();
-		Usuario usuario = new Usuario();
+		DaoEvento daoEventos = new DaoEvento();
+		Evento eventos = new Evento();
 		JSONObject obj = new JSONObject(jsonString);
 		Integer id = obj.getInt("id");
-		usuario.setId(id);;
-        dao.excluiEvento(id);
+		eventos.setId(id);;
+        daoEventos.excluiEvento(id);
         return Response.ok().build();
     }
 
